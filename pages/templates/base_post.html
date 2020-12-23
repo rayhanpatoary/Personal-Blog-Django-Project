@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <main role="main" class="container">
+    <div class="row">
+      <div class="col-md-8 blog-main">
+        <div class="blog-post">
+          <h1 class="blog-post-title">{{ post.title  }}</h1>
+          <p class="blog-post-meta">{{ post.published_date }} by {{ post.author }}</p>
+          <p>
+          {% autoescape off %}
+            {{ post.text }}
+          {% endautoescape %}
+          </p>
+          {% if user.is_authenticated %}
+          <hr>
+          <nav class="blog-pagination">
+            <!--option will be added in near future<a class="btn btn-outline-primary" href="{% url 'base_post_edit' pk=post.pk %}">Edit</a>-->
+            <a class="btn btn-outline-secondary" href="{% url 'base_comment' pk=post.pk %}">Comment</a>
+          </nav>
+          {% endif %}
+          <hr>
+          <div class="comments">
+          {% for comment in post.comments.all %}
+            <div class="comment">
+              <h4>{{ comment.author }}</h4>
+              <p>{{ comment.text }}</p>  
+            </div>
+            {% empty %}
+            <p>No comments...</p>                        
+          {% endfor %}
+          </div>
+        </div>  
+      </div>
+    </div>
+  </main>
+{% endblock %}

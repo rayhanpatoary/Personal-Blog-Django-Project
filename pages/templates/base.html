@@ -1,0 +1,91 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Django Blog</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- icon -->
+    <link rel="icon" href="https://png.icons8.com/ios/100/000000/language-filled.png">
+  </head>
+  <body>
+    <header>
+      <div class="collapse bg-dark" id="navbarHeader">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-4 col-md-4 py-4">
+              <h4 class="text-white">About App</h4>
+              <p class="text-muted">Django Blog build with Django, SQLite, and Bootstrap. Fully open source. Project docs could be found in the following <a href = "https://github.com/aakatev/django-blog">GitHub</a> repo.</p> 
+              <p class="text-muted">Author: Artem Akatev</p>
+              <p class="text-muted">aakatev@mail.sfsu.edu</p>
+            </div>
+            <div class="col-sm-4 offset-md-1 py-4">
+              <h4 class="text-white">Contact</h4>
+              <ul class="list-unstyled">
+                <li><a href="https://github.com/aakatev" class="text-white">Github</a></li>
+                <li><a href="https://www.linkedin.com/in/artem-akatev-b68195144/" class="text-white">LinkedIn</a></li>
+                <li><a href="mailto:aakatev@mail.sfsu.edu" class="text-white">Email</a></li>
+                <li><a href="/about" class="text-white">About Author</a></li>
+              </ul>
+            </div>
+            <div class="col-sm-2 offset-md-1 py-4">
+              <h5> <a class="text-white" href="/">Home</a></h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="navbar navbar-dark bg-dark shadow-sm">
+        <form class="form-inline">
+          <a class="navbar-brand" href="/blog"><strong>Django Blog</strong></a>
+          <!-- Post adding feature will be fixed in near future
+          {% if user.is_authenticated %}
+          <a href="{% url 'base_post_add' %}" class="btn btn-primary my-2 btn-success">Post</a>
+          {% endif %}
+          -->
+        </form>
+        <form class="form-inline">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          {% if user.is_authenticated %}
+          <a href="{% url 'logout' %}" class="btn btn-primary my-2 btn-danger">Logout</a>
+          {% endif %}
+        </form>
+      </div>
+    </header>
+    <main role="main">
+      {% if not user.is_authenticated %}
+      <section class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading">Hi there,</h1>
+          <p class="lead text-muted">You can always signin with your Google Account!</p>
+          <p>
+            <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-danger my-2">SignIn with Google</a>
+          </p>
+        </div>
+      </section> 
+      {% endif %}     
+      <div class="album py-5 bg-light">
+          {% block content %}
+          {% endblock %}
+      </div>
+    </main>
+    <footer class="mastfoot mt-auto container text-center">
+      <div class="inner">
+        <p>Created by <a class="text-dark" href="https://github.com/aakatev">Artem Akatev</a></p>
+      </div>
+    </footer>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>
+
